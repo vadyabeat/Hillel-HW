@@ -69,4 +69,28 @@ public class FirstSelenideTest {
         $(By.xpath("//*[@id='product_1_1_0_0']/td[2]/p/a")).shouldHave(text("Faded Short Sleeve T-shirts"));
         $(By.xpath("//*[@id='product_1_1_0_0']/td[5]/input[2]")).shouldHave(value("1"));
     }
+    @Test(priority=6)
+    public void ProceedToCheckout() {
+        $(By.xpath("//*[@id='center_column']/p[2]/a/span")).shouldHave(text("Proceed to checkout")).click();
+        $("#firstname").sendKeys("John");
+        $("#lastname").sendKeys("Doe");
+        $("#address1").sendKeys("Baker street 221B");
+        $("#postcode").sendKeys("01000");
+        $("#city").sendKeys("London");
+        $("#id_country").selectOption(0);
+        $("#phone").sendKeys("1234567890");
+        $("#id_state").selectOption(1);
+        $(By.xpath("//*[@id='uniform-id_state']/span")).shouldHave(text("Alabama"));
+        $("#alias").sendKeys("home");
+        $("#submitAddress").click();
+        $(By.xpath("//*[@id='address_invoice']/li[2]")).shouldHave(text("John Doe"));
+        $(By.xpath("//*[@id='address_invoice']/li[3]")).shouldHave(text("Baker street 221B"));
+        $(By.xpath("//*[@id='address_invoice']/li[4]")).shouldHave(text("London, Alabama 01000"));
+        $(By.xpath("//*[@id='address_invoice']/li[6]")).shouldHave(text("1234567890"));
+        $(By.xpath("//*[@id='center_column']/form/p/button/span")).shouldHave(text("Proceed to checkout")).click();
+        $("#cgv").click();
+        $("#uniform-cgv > span").shouldHave(attribute("class","checked"));
+        $(By.xpath("//*[@id='form']/p/button")).click();
+        $(By.xpath("//*[@id='center_column']/div/p")).shouldHave(text("No payment modules have been installed."));
+    }
 }
