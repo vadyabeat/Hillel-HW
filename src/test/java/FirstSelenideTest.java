@@ -3,8 +3,7 @@ import org.testng.annotations.Test;
 
 import java.util.Random;
 
-import static com.codeborne.selenide.Condition.attribute;
-import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
@@ -57,5 +56,17 @@ public class FirstSelenideTest {
         $("#passwd").sendKeys("Aa123123123");
         $("#SubmitLogin").click();
         $(".info-account").shouldHave(text("Welcome to your account"));
+    }
+    @Test(priority=5)
+    public void AddItemToCart() {
+        $(".logo").click();
+        $(By.xpath("//*[@id='homefeatured']/li[1]/div/div[2]")).hover();
+        $(By.xpath("//*[@id='homefeatured']/li[1]/div/div[2]/div[2]/a[1]/span")).click();
+        $(By.xpath("//*[@id='layer_cart']/div[1]/div[1]/h2")).shouldHave(text("Товар был успешно добавлен в вашу корзину"));
+        $(By.xpath("//*[@id='layer_cart_product_title']")).shouldHave(text("Faded Short Sleeve T-shirts"));
+        $(By.xpath("//*[@id='layer_cart']/div[1]/div[2]/div[4]/span")).click();
+        $(By.xpath("//*[@id='header']/div[3]/div/div/div[3]/div/a/b")).click();
+        $(By.xpath("//*[@id='product_1_1_0_0']/td[2]/p/a")).shouldHave(text("Faded Short Sleeve T-shirts"));
+        $(By.xpath("//*[@id='product_1_1_0_0']/td[5]/input[2]")).shouldHave(value("1"));
     }
 }
