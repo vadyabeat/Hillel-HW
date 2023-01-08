@@ -51,4 +51,11 @@ public class FirstSelenideTest {
         $(".logout").click();
         $(By.xpath("//*[@id='center_column']/h1")).shouldHave(text("Authentication"));
     }
+    @Test(priority=4)
+    public void LoginTest_with_valid_data() {
+        $("#email").sendKeys("vadyabeat"+ randomInt +"@gmail.com");
+        $("#passwd").sendKeys("Aa123123123");
+        $("#SubmitLogin").click();
+        $(".info-account").shouldHave(text("Welcome to your account"));
+    }
 }
