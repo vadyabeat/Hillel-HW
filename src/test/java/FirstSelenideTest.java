@@ -46,4 +46,9 @@ public class FirstSelenideTest {
         $("#submitAccount").click();
         $(By.xpath("//*[@id='center_column']/p[1]")).shouldHave(text("Your account has been created."));
     }
+    @Test(priority=3)
+    public void LogoutTest() {
+        $(".logout").click();
+        $(By.xpath("//*[@id='center_column']/h1")).shouldHave(text("Authentication"));
+    }
 }
